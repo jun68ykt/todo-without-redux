@@ -1,6 +1,6 @@
 import React from 'react'
-import Footer from './Footer'
-import AddTodo from '../containers/AddTodo'
+import Footer from '../components/Footer'
+import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 
 class App extends React.Component {
