@@ -2,11 +2,16 @@ import React from 'react'
 import Footer from '../components/Footer'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
+import { VisibilityFilters } from '../util'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { todos: [], nextId: 1 }
+    this.state = {
+      todos: [],
+      nextId: 1,
+      filter: VisibilityFilters.SHOW_ALL
+    }
   }
 
   onAdd = text => {
@@ -27,12 +32,33 @@ class App extends React.Component {
     this.setState({ todos })
   }
 
+  onChangeFilter = filter => {
+    this.setState({ filter })
+  }
+
+  visibleTodos = () => {
+    const {todos, filter} = this.state
+    switch (filter) {
+      case VisibilityFilters.SHOW_ALL:
+        return todos
+      case VisibilityFilters.SHOW_ACTIVE:
+        return todos.filter(t => !t.completed)
+      case VisibilityFilters.SHOW_COMPLETED:
+        return todos.filter(t => t.completed)
+      default:
+        throw new Error('Unknown filter: ' + filter)
+    }
+  }
+
   render () {
     return (
       <div>
         <AddTodo onAdd={this.onAdd} />
-        <TodoList todos={this.state.todos} toggleTodo={this.onToggle} />
-        <Footer />
+        <TodoList todos={this.visibleTodos()} toggleTodo={this.onToggle} />
+        <Footer
+          selectedFilter={this.state.filter}
+          onChangeFilter={this.onChangeFilter}
+        />
       </div>
     )
   }

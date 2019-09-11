@@ -1,14 +1,28 @@
 import React from 'react'
 import Link from '../components/Link'
-import { VisibilityFilters } from '../actions'
+import { VisibilityFilters } from '../util'
 
-const Footer = () => (
+const Footer = ({ selectedFilter, onChangeFilter }) => (
   <div>
     <span>Show: </span>
-    {/* TODO: 後で以下のactiveとonClickを修正 */}
-    <Link filter={VisibilityFilters.SHOW_ALL} active={false} onClick={()=> {}}>All</Link>
-    <Link filter={VisibilityFilters.SHOW_ACTIVE } active={false} onClick={()=> {}}>Active</Link>
-    <Link filter={VisibilityFilters.SHOW_COMPLETED} active={false} onClick={()=> {}}>Completed</Link>
+    <Link
+      active={selectedFilter === VisibilityFilters.SHOW_ALL}
+      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_ALL) }}
+    >
+      All
+    </Link>
+    <Link
+      active={selectedFilter === VisibilityFilters.SHOW_ACTIVE}
+      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_ACTIVE) }}
+    >
+      Active
+    </Link>
+    <Link
+      active={selectedFilter === VisibilityFilters.SHOW_COMPLETED}
+      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_COMPLETED) }}
+    >
+      Completed
+    </Link>
   </div>
 )
 
