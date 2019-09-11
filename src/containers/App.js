@@ -54,7 +54,10 @@ class App extends React.Component {
     return (
       <div>
         <AddTodo onAdd={this.onAdd} />
-        <TodoList todos={this.visibleTodos()} toggleTodo={this.onToggle} />
+        <TodoList
+          todos={this.visibleTodos()}
+          toggleTodo={this.onToggle}
+        />
         <Footer
           selectedFilter={this.state.filter}
           onChangeFilter={this.onChangeFilter}

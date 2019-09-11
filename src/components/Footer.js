@@ -2,27 +2,27 @@ import React from 'react'
 import Link from '../components/Link'
 import { VisibilityFilters } from '../util'
 
+const buttonText = filter => {
+  let text = filter.replace(/^SHOW_/,'')
+  return `${text[0]}${text.substring(1).toLowerCase()}`
+}
+
 const Footer = ({ selectedFilter, onChangeFilter }) => (
   <div>
     <span>Show: </span>
-    <Link
-      active={selectedFilter === VisibilityFilters.SHOW_ALL}
-      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_ALL) }}
-    >
-      All
-    </Link>
-    <Link
-      active={selectedFilter === VisibilityFilters.SHOW_ACTIVE}
-      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_ACTIVE) }}
-    >
-      Active
-    </Link>
-    <Link
-      active={selectedFilter === VisibilityFilters.SHOW_COMPLETED}
-      onClick={()=> { onChangeFilter(VisibilityFilters.SHOW_COMPLETED) }}
-    >
-      Completed
-    </Link>
+    {[
+       VisibilityFilters.SHOW_ALL,
+       VisibilityFilters.SHOW_ACTIVE,
+       VisibilityFilters.SHOW_COMPLETED
+     ].map(filter =>
+      <Link
+        key={filter}
+        active={selectedFilter === filter}
+        onClick={()=> { onChangeFilter(filter) }}
+      >
+        {buttonText(filter)}
+      </Link>
+    )}
   </div>
 )
 
