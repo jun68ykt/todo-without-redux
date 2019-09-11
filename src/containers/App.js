@@ -21,11 +21,17 @@ class App extends React.Component {
     })
   }
 
+  onToggle = id => {
+    const todos = this.state.todos.map(
+      todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo)
+    this.setState({ todos })
+  }
+
   render () {
     return (
       <div>
         <AddTodo onAdd={this.onAdd} />
-        <TodoList todos={this.state.todos} toggleTodo={() => {}} />
+        <TodoList todos={this.state.todos} toggleTodo={this.onToggle} />
         <Footer />
       </div>
     )
