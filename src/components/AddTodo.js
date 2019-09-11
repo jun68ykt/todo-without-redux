@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddTodo = () => {
+const AddTodo = ({ onAdd }) => {
   let input
 
   return (
@@ -11,7 +11,7 @@ const AddTodo = () => {
           if (!input.value.trim()) {
             return
           }
-          // TODO: addTodo の処理をあとで追加
+          onAdd(input.value.trim())
           input.value = ''
         }}
       >
