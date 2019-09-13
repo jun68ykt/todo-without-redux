@@ -1,25 +1,38 @@
 import React from 'react'
 
-const AddTodo = ({ onAdd }) => {
-  let input
+class AddTodo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { todoText: '' }
+  }
 
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          if (!input.value.trim()) {
-            return
-          }
-          onAdd(input.value.trim())
-          input.value = ''
-        }}
-      >
-        <input ref={node => (input = node)} />
-        <button type="submit">Add Todo</button>
-      </form>
-    </div>
-  )
+  onInputChange = e => {
+    this.setState({ todoText: e.target.value })
+  }
+
+  onSubmit = () => {
+    const text = this.state.todoText.trim()
+    if (!text) return
+    this.props.onAdd(text)
+    this.setState({ todoText: '' })
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          onChange={this.onInputChange}
+          value={this.state.todoText}
+        />
+        <button
+          type="button"
+          onClick={this.onSubmit}
+        >
+          Add Todo
+        </button>
+      </div>
+    )
+  }
 }
 
 export default AddTodo
